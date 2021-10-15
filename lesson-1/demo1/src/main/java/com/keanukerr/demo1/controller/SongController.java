@@ -2,22 +2,31 @@ package com.keanukerr.demo1.controller;
 
 import com.keanukerr.demo1.model.Song;
 import com.keanukerr.demo1.repository.MediaRepository;
+import com.keanukerr.demo1.service.MediaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/songs")
+import java.util.List;
+
+@RequestMapping("/songs")
+@RestController
 public class SongController {
 
-    private final MediaRepository repository;
+    private final MediaService mediaService;
 
-    @GetMapping("/hello-world")
-    public String helloWorld(@RequestParam(value = "name", defaultValue = "World") String name,
-                             @RequestParam(value = "last-name") String lastName) {
-        return "Hello " + name + " " + lastName;
+    @Autowired
+    public SongController(MediaService mediaService) {
+        this.mediaService = mediaService;
     }
 
     @PostMapping("/save")
-    public String saveSong(@RequestBody Song song) {
+    public int saveSong(@RequestBody Song song) {
+        return mediaService.insertSong(song);
+    }
 
+    @GetMapping("get-all")
+    public List<Song> getAllSongs() {
+        return mediaService.getAllSongs();
     }
 
 }
