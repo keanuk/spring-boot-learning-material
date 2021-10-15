@@ -1,12 +1,16 @@
 package com.keanukerr.demo1.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 public class Song {
 
-    private final UUID id;
+    @JsonIgnore
+    private UUID id;
+
+    @NotBlank(message = "Title is required")
     private String title;
     private String artist;
     private String album;
@@ -67,4 +71,6 @@ public class Song {
     public UUID getId() {
         return id;
     }
+
+    public void setId(UUID id) { this.id = id; }
 }

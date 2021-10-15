@@ -14,6 +14,8 @@ REST (REpresentational State Transfer) is a set of commands commonly used with w
 - PUT: update
 - DELETE: delete
 
+GUI Application -> REST API (Spring Boot Application) -> Database
+
 ## What is the Spring Framework?
 
 The Spring Framework is a collection of libraries and configurations that take care of the more mundane tasks in creating a web application. It gained popularity because it significantly speeds up development time and abstracts some of the more difficult implementation details for back end applications.
@@ -26,6 +28,8 @@ Supports 3 languages:
 ## What is Spring Boot?
 
 Spring Boot is a pre-configured setup of the Spring Framework. A Spring Boot application is still a Spring application, it just removes some of the setup and configuration by giving developers a set of 'sane' defaults to start with.
+
+Controller (Endpoints) -> Service (Business logic) -> Repository (DAO)
 
 ## Useful Utilities
 
@@ -76,14 +80,37 @@ We are going to create a sample REST API to showcase the process of creating a S
 
 Reads data.
 
+    @GetMapping("/{id}")
+    public Song getSongById(@PathVariable("id") UUID id) {
+        return mediaService.getSongById(id);
+    }
+
+
 ## POST Request
 
 Writes data.
+
+    @PostMapping("/save")
+    public int saveSong(@RequestBody @Valid final Song song) {
+        return mediaService.insertSong(song);
+    }
+
 
 ## PUT Request
 
 Updates data
 
+    @PutMapping("/update")
+    public int updateSongById(@RequestParam(value = "id") UUID id, @RequestBody Song song) {
+        return mediaService.updateSongById(id, song);
+    }
+
+
 ## DELETE Request
 
 Deletes data
+
+    @DeleteMapping("/delete")
+    public int deleteSongById(@RequestParam(value = "id") UUID id) {
+        return mediaService.deleteSongById(id);
+    }

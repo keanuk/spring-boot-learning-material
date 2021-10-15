@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MediaService {
@@ -24,5 +25,17 @@ public class MediaService {
 
     public List<Song> getAllSongs() {
         return mediaRepository.getAllSongs();
+    }
+
+    public Song getSongById(UUID id) {
+        return mediaRepository.getSongById(id);
+    }
+
+    public int deleteSongById(UUID id) {
+        return mediaRepository.deleteSongById(id);
+    }
+
+    public int updateSongById(UUID id, Song song) {
+        return mediaRepository.updateSongById(id, song);
     }
 }

@@ -14,4 +14,10 @@ public interface IMediaRepository {
     }
 
     List<Song> getAllSongs();
+
+    Song getSongById(UUID id);
+    
+    int deleteSongById(UUID id);
+
+    int updateSongById(UUID id, Song song);
 }
